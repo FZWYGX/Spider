@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Scrapy settings for ITJuZi project
+# Scrapy settings for TaobaoScrapy project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -9,29 +9,30 @@
 #     https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'ITJuZi'
+BOT_NAME = 'TaobaoScrapy'
 
-SPIDER_MODULES = ['ITJuZi.spiders']
-NEWSPIDER_MODULE = 'ITJuZi.spiders'
+SPIDER_MODULES = ['TaobaoScrapy.spiders']
+NEWSPIDER_MODULE = 'TaobaoScrapy.spiders'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-USER_AGENT = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36',
+# USER_AGENT = 'TaobaoScrapy (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
-# CONCURRENT_REQUESTS = 32
+CONCURRENT_REQUESTS = 1
 
 # Configure a delay for requests for the same website (default: 0)
 # See https://doc.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
 
-DOWNLOAD_DELAY = 3
+# DOWNLOAD_DELAY = 1
 
 # The download delay setting will honor only one of:
-# CONCURRENT_REQUESTS_PER_DOMAIN = 16
-# CONCURRENT_REQUESTS_PER_IP = 16
+#
+# CONCURRENT_REQUESTS_PER_DOMAIN = 1
+# CONCURRENT_REQUESTS_PER_IP = 1
 
 # Disable cookies (enabled by default)
 # COOKIES_ENABLED = False
@@ -41,21 +42,21 @@ DOWNLOAD_DELAY = 3
 
 # Override the default request headers:
 # DEFAULT_REQUEST_HEADERS = {
-#   'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-#   'Accept-Language': 'en',
+#   'Host':'www.taobao.com',
+#   'User-Agent':'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36',
+#   'Cookie': 'thw=cn; cna=lcp5Ewvt6AYCAbaWjsWuI2H3; v=0; t=bcecb1bebb695a93afa999b4a91de5ea; cookie2=10864e163f9155bafe54aa5bd896e998; _tb_token_=e8356eda38d38; isg=BNTUhSVKcnU2zOY5wigJuZMRpRKGhT_flf4yWG61Yt_iWXSjlj3Ip4rbXVFBoTBv',
 # }
 
 # Enable or disable spider middlewares
 # See https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 # SPIDER_MIDDLEWARES = {
-#    'ITJuZi.middlewares.ItjuziSpiderMiddleware': 543,
+#
 # }
 
 # Enable or disable downloader middlewares
 # See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
-    # 'ITJuZi.middlewares.ProxyMiddleware': 300,
-    'ITJuZi.middlewares.UAMiddleware': 400,
+    'TaobaoScrapy.middlewares.TaobaoScrapySpiderMiddleware': 543,
 }
 
 # Enable or disable extensions
@@ -67,7 +68,7 @@ DOWNLOADER_MIDDLEWARES = {
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    'ITJuZi.pipelines.ItjuziPipeline': 300,
+    'TaobaoScrapy.pipelines.MongoPipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -91,18 +92,8 @@ ITEM_PIPELINES = {
 # HTTPCACHE_IGNORE_HTTP_CODES = []
 # HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
-MONGODB_HOST = 'localhost'  # 本地数据库
-MONGODB_PORT = '27017'  # 数据库端口
-MONGODB_URI = 'mongodb://{}:{}'.format(MONGODB_HOST, MONGODB_PORT)
-MONGODB_DATABASE = 'ITJZ'  # 数据库名字
-
-SCHEDULER = "scrapy_redis.scheduler.Scheduler"  # 必有项：更改去重对列
-
-# Ensure all spiders share same duplicates filter through redis.
-DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"  # 必有项：利用Redis去重
-
-SCHEDULER_PERSIST = True
-
-REDIS_URL = 'redis://127.0.0.1:6379'  # 配置连接
-
-PROXY_URL = 'http://localhost:5555/random'
+MAX_PAGE = 50
+SELENIUM_TIMEOUT = 20
+PHANTOMJS_SERVICE_ARGS = ['--load-images=false', '--disk-cache=true']
+MONGO_URI = 'localhost'
+MONGO_DB = 'Taobao'
