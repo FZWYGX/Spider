@@ -1,9 +1,9 @@
 - IT桔子爬虫
-
+  ```
   Master端：
 
   redis-cli > lpush ITjuzi:start_urls http://www.itjuzi.com/
-
+  ```
 - 简书CrawlSpider爬虫
 
 - 淘宝 Scrapy + Selenium 爬虫
